@@ -1,0 +1,38 @@
+{
+  "pvpon": {
+    "category": "master",
+    "sounds": [{ "name": "extr3mo:pvpon", "stream": false }]
+  },
+  "pvpoff": {
+    "category": "master",
+    "sounds": [{ "name": "extr3mo:pvpoff", "stream": false }]
+  },
+  "loseheartplayer": {
+    "category": "player",
+    "sounds": [{ "name": "extr3mo:loseheartplayer", "stream": false }]
+  },
+  "loseheart": {
+    "category": "player",
+    "sounds": [{ "name": "extr3mo:loseheart", "stream": false }]
+  },
+  "loseallheart": {
+    "category": "player",
+    "sounds": [{ "name": "extr3mo:loseallheart", "stream": false }]
+  },
+  "slotperdidoplayer": {
+    "category": "player",
+    "sounds": [{ "name": "extr3mo:slotperdidoplayer", "stream": false }]
+  },
+  "slotperdidoall": {
+    "category": "player",
+    "sounds": [{ "name": "extr3mo:slotperdidoall", "stream": false }]
+  },
+  "cambio": {
+    "category": "master",
+    "sounds": [{ "name": "extr3mo:cambio", "stream": false }]
+  },
+  "noti": {
+    "category": "master",
+    "sounds": [{ "name": "extr3mo:noti", "stream": false }]
+  }
+}

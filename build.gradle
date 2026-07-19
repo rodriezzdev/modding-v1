@@ -1,0 +1,104 @@
+plugins {
+	id 'net.fabricmc.fabric-loom-remap' version "${loom_version}"
+	id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+repositories {
+	// AÑADIDO: Repositorio oficial para descargar GeckoLib
+	maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+}
+
+dependencies {
+	// To change the versions see the gradle.properties file
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings loom.officialMojangMappings()
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+	// Fabric API. This is technically optional, but you probably want it anyway.
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+	// AÑADIDO: Dependencia oficial de GeckoLib para Fabric 1.21.1
+	modImplementation "software.bernie.geckolib:geckolib-fabric-1.21.1:4.7"
+}
+
+processResources {
+	def version = project.version
+	inputs.property "version", version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 21
+}
+
+java {
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+	// if it is present.
+	// If you remove this line, sources will not be generated.
+	withSourcesJar()
+
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+}
+
+jar {
+	def projectName = project.name
+	inputs.property "projectName", projectName
+
+	from("LICENSE") {
+		rename { "${it}_$projectName"}
+	}
+}
+
+// configure the maven publication
+publishing {
+	publications {
+		create("mavenJava", MavenPublication) {
+			from components.java
+		}
+	}
+
+	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+	repositories {
+		// Add repositories to publish to here.
+		// Notice: This block does NOT have the same function as the block in the top level.
+		// The repositories here will be used for publishing your artifact, not for
+		// retrieving dependencies.
+	}
+}
+
+// =====================================================================================================
+// SISTEMA DE BLINDAJE Y EXCLUSIÓN DE CÓDIGO PRIVADO PARA EL CLIENTE (LAUNCHER)
+// =====================================================================================================
+
+// Tarea 1: Recorta el código y sustituye el archivo de mixins por el dummy vacío
+tasks.register('clientJar', Jar) {
+	from sourceSets.main.output
+	archiveClassifier = 'client-raw'
+
+	// Filtros de exclusión: evaporamos las clases lógicas
+	exclude('net/mcextremo/server/**')
+	exclude('net/mcextremo/mixin/server/**')
+	exclude('net/mcextremo/PvpDamageHandler.class')
+	exclude('net/mcextremo/VidasData.class')
+
+	// EL TRUCO: Eliminamos el mixin secreto del servidor...
+	exclude('extr3mo.server.mixins.json')
+	// ...y renombramos el inofensivo para que tome su lugar perfectamente en el cliente
+	rename('extr3mo.server.mixins.client.json', 'extr3mo.server.mixins.json')
+}
+
+// Tarea 2: Pasa el paquete reestructurado por el remapeador oficial de Loom para producción
+tasks.register('compileClientJar', net.fabricmc.loom.task.RemapJarTask) {
+	group = 'build'
+	description = 'Genera el JAR blindado y remapeado oficialmente para tus jugadores.'
+
+	inputFile = clientJar.archiveFile
+	archiveClassifier = 'client'
+}

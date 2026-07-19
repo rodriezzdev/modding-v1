@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"id": "extr3mo",
+	"version": "1.0.0",
+	"name": "MCExtremo",
+	"description": "Mod de vidas y PvP aleatorio para eventos extremos.",
+	"authors": [
+		"Kilian"
+	],
+	"contact": {},
+	"license": "MIT",
+	"icon": "assets/extr3mo/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.mcextremo.Extr3mo"
+		],
+		"client": [
+			"net.mcextremo.client.Extr3moClient"
+		],
+		"server": [
+			"net.mcextremo.server.Extr3moServer"
+		]
+	},
+	"mixins": [
+		"extr3mo.common.mixins.json",
+		"extr3mo.server.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

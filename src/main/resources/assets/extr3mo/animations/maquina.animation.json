@@ -1,0 +1,80 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"usar": {
+			"animation_length": 1,
+			"bones": {
+				"1": {
+					"scale": {
+						"vector": [0.7, 0.7, 0.7]
+					}
+				},
+				"2": {
+					"scale": {
+						"vector": [0.7, 0.7, 0.7]
+					}
+				},
+				"3": {
+					"scale": {
+						"vector": [0.7, 0.7, 0.7]
+					}
+				},
+				"4": {
+					"scale": {
+						"vector": [0.7, 0.7, 0.7]
+					}
+				},
+				"5": {
+					"scale": {
+						"vector": [0.7, 0.7, 0.7]
+					}
+				},
+				"6": {
+					"scale": {
+						"vector": [0.7, 0.7, 0.7]
+					}
+				},
+				"waist": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [0, 0, 0]
+						},
+						"0.3333": {
+							"vector": ["math.sin(query.anim_time * 1125) * 1", 0, "math.sin(query.anim_time * 1125) * 1"]
+						},
+						"0.4167": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.25": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"lever": {
+					"rotation": {
+						"0.0": {
+							"vector": [-45, 0, 0]
+						},
+						"0.25": {
+							"vector": [67.5, 0, 0]
+						},
+						"1.0": {
+							"vector": [-45, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"idle": {
+			"loop": true
+		}
+	}
+}
